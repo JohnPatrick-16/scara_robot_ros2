@@ -1,0 +1,25 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: scara_description
+    relative_path: urdf/scara_with_motors_gripper.urdf
+  srdf:
+    relative_path: config/scara_robot.srdf
+  package_settings:
+    author_name: JohnPatrick
+    author_email: johnpatrick16.17.2005@gmail.com
+    generated_timestamp: 1791316950
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity

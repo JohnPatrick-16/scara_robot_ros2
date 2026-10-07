@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="scara_robot">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+<group name="scara_arm">
+    <joint name="base_joint"/>
+    <joint name="z_axis"/>
+    <joint name="joint2"/>
+    <joint name="joint3"/>
+</group>
+<!-- COMBINED SCARA ARM + GRIPPER GROUP -->
+<group name="scara_with_gripper">
+    <group name="scara_arm"/>
+    <group name="gripper"/>
+</group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="home" group="scara_arm">
+        <joint name="base_joint" value="0"/>
+        <joint name="joint2" value="0"/>
+        <joint name="joint3" value="0"/>
+        <joint name="z_axis" value="0"/>
+    </group_state>
+    <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
+    <virtual_joint name="virtual_joint" type="fixed" parent_frame="world" child_link="base_link"/>
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="arm1_link" link2="arm2_link" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="base_link" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="gripper_horn" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="gripper_left" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="gripper_link" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="gripper_link1_left" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="gripper_link1_right" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="gripper_link2_left" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="gripper_link2_right" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="gripper_right" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="gripper_slider_left" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="gripper_slider_right" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="j2_link" reason="Adjacent"/>
+    <disable_collisions link1="arm1_link" link2="j3_link" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="motor_j1_base" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="motor_j2_carriage" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="motor_j3_arm2" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="motor_z" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="top_cover" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="z_bottom_plate" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="z_drive_coupler" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="z_lead_screw" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="z_mount_platform" reason="Adjacent"/>
+    <disable_collisions link1="arm1_link" link2="z_rod_clamps" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="z_rods" reason="Never"/>
+    <disable_collisions link1="arm1_link" link2="z_top_plate" reason="Never"/>
+    <disable_collisions link1="arm2_link" link2="gripper_horn" reason="Never"/>
+    <disable_collisions link1="arm2_link" link2="gripper_left" reason="Never"/>
+    <disable_collisions link1="arm2_link" link2="gripper_link" reason="Never"/>
+    <disable_collisions link1="arm2_link" link2="gripper_link1_left" reason="Never"/>
+    <disable_collisions link1="arm2_link" link2="gripper_link1_right" reason="Never"/>
+    <disable_collisions link1="arm2_link" link2="gripper_link2_left" reason="Never"/>
+    <disable_collisions link1="arm2_link" link2="gripper_link2_right" reason="Never"/>
+    <disable_collisions link1="arm2_link" link2="gripper_right" reason="Never"/>
+    <disable_collisions link1="arm2_link" link2="gripper_slider_left" reason="Never"/>
+    <disable_collisions link1="arm2_link" link2="gripper_slider_right" reason="Never"/>
+    <disable_collisions link1="arm2_link" link2="j2_link" reason="Adjacent"/>
+    <disable_collisions link1="arm2_link" link2="j3_link" reason="Adjacent"/>
+    <disable_collisions link1="arm2_link" link2="motor_j2_carriage" reason="Never"/>
+    <disable_collisions link1="arm2_link" link2="motor_j3_arm2" reason="Adjacent"/>
+    <disable_collisions link1="arm2_link" link2="motor_z" reason="Never"/>
+    <disable_collisions link1="arm2_link" link2="top_cover" reason="Never"/>
+    <disable_collisions link1="arm2_link" link2="z_lead_screw" reason="Never"/>
+    <disable_collisions link1="arm2_link" link2="z_mount_platform" reason="Never"/>
+    <disable_collisions link1="arm2_link" link2="z_rods" reason="Never"/>
+    <disable_collisions link1="arm2_link" link2="z_top_plate" reason="Never"/>
+    <disable_collisions link1="base_link" link2="j2_link" reason="Never"/>
+    <disable_collisions link1="base_link" link2="motor_j1_base" reason="Adjacent"/>
+    <disable_collisions link1="base_link" link2="motor_j2_carriage" reason="Never"/>
+    <disable_collisions link1="base_link" link2="motor_j3_arm2" reason="Never"/>
+    <disable_collisions link1="base_link" link2="motor_z" reason="Adjacent"/>
+    <disable_collisions link1="base_link" link2="top_cover" reason="Adjacent"/>
+    <disable_collisions link1="base_link" link2="z_bottom_plate" reason="Adjacent"/>
+    <disable_collisions link1="base_link" link2="z_drive_coupler" reason="Adjacent"/>
+    <disable_collisions link1="base_link" link2="z_lead_screw" reason="Adjacent"/>
+    <disable_collisions link1="base_link" link2="z_mount_platform" reason="Adjacent"/>
+    <disable_collisions link1="base_link" link2="z_rod_clamps" reason="Adjacent"/>
+    <disable_collisions link1="base_link" link2="z_rods" reason="Adjacent"/>
+    <disable_collisions link1="base_link" link2="z_top_plate" reason="Adjacent"/>
+    <disable_collisions link1="gripper_horn" link2="gripper_left" reason="Never"/>
+    <disable_collisions link1="gripper_horn" link2="gripper_link" reason="Adjacent"/>
+    <disable_collisions link1="gripper_horn" link2="gripper_link1_left" reason="Default"/>
+    <disable_collisions link1="gripper_horn" link2="gripper_link1_right" reason="Default"/>
+    <disable_collisions link1="gripper_horn" link2="gripper_link2_left" reason="Never"/>
+    <disable_collisions link1="gripper_horn" link2="gripper_link2_right" reason="Always"/>
+    <disable_collisions link1="gripper_horn" link2="gripper_right" reason="Never"/>
+    <disable_collisions link1="gripper_horn" link2="gripper_slider_left" reason="Never"/>
+    <disable_collisions link1="gripper_horn" link2="gripper_slider_right" reason="Never"/>
+    <disable_collisions link1="gripper_horn" link2="j2_link" reason="Never"/>
+    <disable_collisions link1="gripper_horn" link2="j3_link" reason="Never"/>
+    <disable_collisions link1="gripper_horn" link2="motor_j2_carriage" reason="Never"/>
+    <disable_collisions link1="gripper_horn" link2="motor_j3_arm2" reason="Never"/>
+    <disable_collisions link1="gripper_horn" link2="motor_z" reason="Never"/>
+    <disable_collisions link1="gripper_horn" link2="top_cover" reason="Never"/>
+    <disable_collisions link1="gripper_horn" link2="z_bottom_plate" reason="Never"/>
+    <disable_collisions link1="gripper_horn" link2="z_drive_coupler" reason="Never"/>
+    <disable_collisions link1="gripper_horn" link2="z_lead_screw" reason="Never"/>
+    <disable_collisions link1="gripper_horn" link2="z_mount_platform" reason="Never"/>
+    <disable_collisions link1="gripper_horn" link2="z_rod_clamps" reason="Never"/>
+    <disable_collisions link1="gripper_horn" link2="z_rods" reason="Never"/>
+    <disable_collisions link1="gripper_horn" link2="z_top_plate" reason="Never"/>
+    <disable_collisions link1="gripper_left" link2="gripper_link" reason="Adjacent"/>
+    <disable_collisions link1="gripper_left" link2="gripper_link1_left" reason="Never"/>
+    <disable_collisions link1="gripper_left" link2="gripper_link1_right" reason="Never"/>
+    <disable_collisions link1="gripper_left" link2="gripper_link2_left" reason="Never"/>
+    <disable_collisions link1="gripper_left" link2="gripper_link2_right" reason="Never"/>
+    <disable_collisions link1="gripper_left" link2="gripper_right" reason="Never"/>
+    <disable_collisions link1="gripper_left" link2="gripper_slider_left" reason="Adjacent"/>
+    <disable_collisions link1="gripper_left" link2="gripper_slider_right" reason="Never"/>
+    <disable_collisions link1="gripper_left" link2="j2_link" reason="Never"/>
+    <disable_collisions link1="gripper_left" link2="j3_link" reason="Never"/>
+    <disable_collisions link1="gripper_left" link2="motor_j2_carriage" reason="Never"/>
+    <disable_collisions link1="gripper_left" link2="motor_j3_arm2" reason="Never"/>
+    <disable_collisions link1="gripper_left" link2="motor_z" reason="Never"/>
+    <disable_collisions link1="gripper_left" link2="top_cover" reason="Never"/>
+    <disable_collisions link1="gripper_left" link2="z_mount_platform" reason="Never"/>
+    <disable_collisions link1="gripper_left" link2="z_rods" reason="Never"/>
+    <disable_collisions link1="gripper_left" link2="z_top_plate" reason="Never"/>
+    <disable_collisions link1="gripper_link" link2="gripper_link1_left" reason="Never"/>
+    <disable_collisions link1="gripper_link" link2="gripper_link1_right" reason="Never"/>
+    <disable_collisions link1="gripper_link" link2="gripper_right" reason="Adjacent"/>
+    <disable_collisions link1="gripper_link" link2="gripper_slider_left" reason="Default"/>
+    <disable_collisions link1="gripper_link" link2="gripper_slider_right" reason="Default"/>
+    <disable_collisions link1="gripper_link" link2="j2_link" reason="Never"/>
+    <disable_collisions link1="gripper_link" link2="j3_link" reason="Adjacent"/>
+    <disable_collisions link1="gripper_link" link2="motor_j2_carriage" reason="Never"/>
+    <disable_collisions link1="gripper_link" link2="motor_j3_arm2" reason="Never"/>
+    <disable_collisions link1="gripper_link" link2="motor_z" reason="Never"/>
+    <disable_collisions link1="gripper_link" link2="top_cover" reason="Never"/>
+    <disable_collisions link1="gripper_link" link2="z_mount_platform" reason="Never"/>
+    <disable_collisions link1="gripper_link" link2="z_top_plate" reason="Never"/>
+    <disable_collisions link1="gripper_link1_left" link2="gripper_link1_right" reason="Never"/>
+    <disable_collisions link1="gripper_link1_left" link2="gripper_link2_left" reason="Never"/>
+    <disable_collisions link1="gripper_link1_left" link2="gripper_link2_right" reason="Never"/>
+    <disable_collisions link1="gripper_link1_left" link2="gripper_right" reason="Never"/>
+    <disable_collisions link1="gripper_link1_left" link2="gripper_slider_left" reason="Adjacent"/>
+    <disable_collisions link1="gripper_link1_left" link2="gripper_slider_right" reason="Never"/>
+    <disable_collisions link1="gripper_link1_left" link2="j2_link" reason="Never"/>
+    <disable_collisions link1="gripper_link1_left" link2="j3_link" reason="Never"/>
+    <disable_collisions link1="gripper_link1_left" link2="motor_j2_carriage" reason="Never"/>
+    <disable_collisions link1="gripper_link1_left" link2="motor_j3_arm2" reason="Never"/>
+    <disable_collisions link1="gripper_link1_left" link2="motor_z" reason="Never"/>
+    <disable_collisions link1="gripper_link1_left" link2="top_cover" reason="Never"/>
+    <disable_collisions link1="gripper_link1_left" link2="z_bottom_plate" reason="Never"/>
+    <disable_collisions link1="gripper_link1_left" link2="z_drive_coupler" reason="Never"/>
+    <disable_collisions link1="gripper_link1_left" link2="z_lead_screw" reason="Never"/>
+    <disable_collisions link1="gripper_link1_left" link2="z_mount_platform" reason="Never"/>
+    <disable_collisions link1="gripper_link1_left" link2="z_rod_clamps" reason="Never"/>
+    <disable_collisions link1="gripper_link1_left" link2="z_rods" reason="Never"/>
+    <disable_collisions link1="gripper_link1_left" link2="z_top_plate" reason="Never"/>
+    <disable_collisions link1="gripper_link1_right" link2="gripper_link2_left" reason="Never"/>
+    <disable_collisions link1="gripper_link1_right" link2="gripper_link2_right" reason="Never"/>
+    <disable_collisions link1="gripper_link1_right" link2="gripper_right" reason="Never"/>
+    <disable_collisions link1="gripper_link1_right" link2="gripper_slider_left" reason="Never"/>
+    <disable_collisions link1="gripper_link1_right" link2="gripper_slider_right" reason="Adjacent"/>
+    <disable_collisions link1="gripper_link1_right" link2="j2_link" reason="Never"/>
+    <disable_collisions link1="gripper_link1_right" link2="j3_link" reason="Never"/>
+    <disable_collisions link1="gripper_link1_right" link2="motor_j2_carriage" reason="Never"/>
+    <disable_collisions link1="gripper_link1_right" link2="motor_j3_arm2" reason="Never"/>
+    <disable_collisions link1="gripper_link1_right" link2="motor_z" reason="Never"/>
+    <disable_collisions link1="gripper_link1_right" link2="top_cover" reason="Never"/>
+    <disable_collisions link1="gripper_link1_right" link2="z_bottom_plate" reason="Never"/>
+    <disable_collisions link1="gripper_link1_right" link2="z_drive_coupler" reason="Never"/>
+    <disable_collisions link1="gripper_link1_right" link2="z_lead_screw" reason="Never"/>
+    <disable_collisions link1="gripper_link1_right" link2="z_mount_platform" reason="Never"/>
+    <disable_collisions link1="gripper_link1_right" link2="z_rod_clamps" reason="Never"/>
+    <disable_collisions link1="gripper_link1_right" link2="z_rods" reason="Never"/>
+    <disable_collisions link1="gripper_link1_right" link2="z_top_plate" reason="Never"/>
+    <disable_collisions link1="gripper_link2_left" link2="gripper_link2_right" reason="Never"/>
+    <disable_collisions link1="gripper_link2_left" link2="gripper_right" reason="Never"/>
+    <disable_collisions link1="gripper_link2_left" link2="gripper_slider_left" reason="Adjacent"/>
+    <disable_collisions link1="gripper_link2_left" link2="gripper_slider_right" reason="Never"/>
+    <disable_collisions link1="gripper_link2_left" link2="j2_link" reason="Never"/>
+    <disable_collisions link1="gripper_link2_left" link2="j3_link" reason="Never"/>
+    <disable_collisions link1="gripper_link2_left" link2="motor_j2_carriage" reason="Never"/>
+    <disable_collisions link1="gripper_link2_left" link2="motor_j3_arm2" reason="Never"/>
+    <disable_collisions link1="gripper_link2_left" link2="motor_z" reason="Never"/>
+    <disable_collisions link1="gripper_link2_left" link2="top_cover" reason="Never"/>
+    <disable_collisions link1="gripper_link2_left" link2="z_bottom_plate" reason="Never"/>
+    <disable_collisions link1="gripper_link2_left" link2="z_drive_coupler" reason="Never"/>
+    <disable_collisions link1="gripper_link2_left" link2="z_lead_screw" reason="Never"/>
+    <disable_collisions link1="gripper_link2_left" link2="z_mount_platform" reason="Never"/>
+    <disable_collisions link1="gripper_link2_left" link2="z_rod_clamps" reason="Never"/>
+    <disable_collisions link1="gripper_link2_left" link2="z_rods" reason="Never"/>
+    <disable_collisions link1="gripper_link2_left" link2="z_top_plate" reason="Never"/>
+    <disable_collisions link1="gripper_link2_right" link2="gripper_right" reason="Never"/>
+    <disable_collisions link1="gripper_link2_right" link2="gripper_slider_left" reason="Never"/>
+    <disable_collisions link1="gripper_link2_right" link2="gripper_slider_right" reason="Adjacent"/>
+    <disable_collisions link1="gripper_link2_right" link2="j2_link" reason="Never"/>
+    <disable_collisions link1="gripper_link2_right" link2="j3_link" reason="Never"/>
+    <disable_collisions link1="gripper_link2_right" link2="motor_j2_carriage" reason="Never"/>
+    <disable_collisions link1="gripper_link2_right" link2="motor_j3_arm2" reason="Never"/>
+    <disable_collisions link1="gripper_link2_right" link2="motor_z" reason="Never"/>
+    <disable_collisions link1="gripper_link2_right" link2="top_cover" reason="Never"/>
+    <disable_collisions link1="gripper_link2_right" link2="z_bottom_plate" reason="Never"/>
+    <disable_collisions link1="gripper_link2_right" link2="z_drive_coupler" reason="Never"/>
+    <disable_collisions link1="gripper_link2_right" link2="z_lead_screw" reason="Never"/>
+    <disable_collisions link1="gripper_link2_right" link2="z_mount_platform" reason="Never"/>
+    <disable_collisions link1="gripper_link2_right" link2="z_rod_clamps" reason="Never"/>
+    <disable_collisions link1="gripper_link2_right" link2="z_rods" reason="Never"/>
+    <disable_collisions link1="gripper_link2_right" link2="z_top_plate" reason="Never"/>
+    <disable_collisions link1="gripper_right" link2="gripper_slider_left" reason="Never"/>
+    <disable_collisions link1="gripper_right" link2="gripper_slider_right" reason="Adjacent"/>
+    <disable_collisions link1="gripper_right" link2="j2_link" reason="Never"/>
+    <disable_collisions link1="gripper_right" link2="j3_link" reason="Never"/>
+    <disable_collisions link1="gripper_right" link2="motor_j2_carriage" reason="Never"/>
+    <disable_collisions link1="gripper_right" link2="motor_j3_arm2" reason="Never"/>
+    <disable_collisions link1="gripper_right" link2="motor_z" reason="Never"/>
+    <disable_collisions link1="gripper_right" link2="top_cover" reason="Never"/>
+    <disable_collisions link1="gripper_right" link2="z_mount_platform" reason="Never"/>
+    <disable_collisions link1="gripper_right" link2="z_rods" reason="Never"/>
+    <disable_collisions link1="gripper_right" link2="z_top_plate" reason="Never"/>
+    <disable_collisions link1="gripper_slider_left" link2="gripper_slider_right" reason="Never"/>
+    <disable_collisions link1="gripper_slider_left" link2="j2_link" reason="Never"/>
+    <disable_collisions link1="gripper_slider_left" link2="j3_link" reason="Never"/>
+    <disable_collisions link1="gripper_slider_left" link2="motor_j2_carriage" reason="Never"/>
+    <disable_collisions link1="gripper_slider_left" link2="motor_j3_arm2" reason="Never"/>
+    <disable_collisions link1="gripper_slider_left" link2="motor_z" reason="Never"/>
+    <disable_collisions link1="gripper_slider_left" link2="top_cover" reason="Never"/>
+    <disable_collisions link1="gripper_slider_left" link2="z_lead_screw" reason="Never"/>
+    <disable_collisions link1="gripper_slider_left" link2="z_mount_platform" reason="Never"/>
+    <disable_collisions link1="gripper_slider_left" link2="z_rods" reason="Never"/>
+    <disable_collisions link1="gripper_slider_left" link2="z_top_plate" reason="Never"/>
+    <disable_collisions link1="gripper_slider_right" link2="j2_link" reason="Never"/>
+    <disable_collisions link1="gripper_slider_right" link2="j3_link" reason="Never"/>
+    <disable_collisions link1="gripper_slider_right" link2="motor_j2_carriage" reason="Never"/>
+    <disable_collisions link1="gripper_slider_right" link2="motor_j3_arm2" reason="Never"/>
+    <disable_collisions link1="gripper_slider_right" link2="motor_z" reason="Never"/>
+    <disable_collisions link1="gripper_slider_right" link2="top_cover" reason="Never"/>
+    <disable_collisions link1="gripper_slider_right" link2="z_lead_screw" reason="Never"/>
+    <disable_collisions link1="gripper_slider_right" link2="z_mount_platform" reason="Never"/>
+    <disable_collisions link1="gripper_slider_right" link2="z_rods" reason="Never"/>
+    <disable_collisions link1="gripper_slider_right" link2="z_top_plate" reason="Never"/>
+    <disable_collisions link1="j2_link" link2="j3_link" reason="Never"/>
+    <disable_collisions link1="j2_link" link2="motor_j1_base" reason="Never"/>
+    <disable_collisions link1="j2_link" link2="motor_j2_carriage" reason="Never"/>
+    <disable_collisions link1="j2_link" link2="motor_j3_arm2" reason="Never"/>
+    <disable_collisions link1="j2_link" link2="motor_z" reason="Never"/>
+    <disable_collisions link1="j2_link" link2="top_cover" reason="Never"/>
+    <disable_collisions link1="j2_link" link2="z_bottom_plate" reason="Never"/>
+    <disable_collisions link1="j2_link" link2="z_drive_coupler" reason="Never"/>
+    <disable_collisions link1="j2_link" link2="z_lead_screw" reason="Never"/>
+    <disable_collisions link1="j2_link" link2="z_mount_platform" reason="Never"/>
+    <disable_collisions link1="j2_link" link2="z_rod_clamps" reason="Never"/>
+    <disable_collisions link1="j2_link" link2="z_rods" reason="Never"/>
+    <disable_collisions link1="j2_link" link2="z_top_plate" reason="Never"/>
+    <disable_collisions link1="j3_link" link2="motor_j2_carriage" reason="Never"/>
+    <disable_collisions link1="j3_link" link2="motor_j3_arm2" reason="Never"/>
+    <disable_collisions link1="j3_link" link2="motor_z" reason="Never"/>
+    <disable_collisions link1="j3_link" link2="top_cover" reason="Never"/>
+    <disable_collisions link1="j3_link" link2="z_lead_screw" reason="Never"/>
+    <disable_collisions link1="j3_link" link2="z_mount_platform" reason="Never"/>
+    <disable_collisions link1="j3_link" link2="z_rod_clamps" reason="Never"/>
+  <!-- ===================== GRIPPER GROUP ===================== -->
+
+  <group name="gripper">
+    <joint name="gripper_left_joint"/>
+  </group>
+
+
+  <!-- ===================== GRIPPER OPEN ===================== -->
+
+  <group_state name="open" group="gripper">
+    <joint name="gripper_left_joint" value="0.020"/>
+  </group_state>
+
+
+  <!-- ===================== GRIPPER CLOSED ===================== -->
+
+  <group_state name="closed" group="gripper">
+    <joint name="gripper_left_joint" value="0.0"/>
+  </group_state>
+
+
+  <!-- ===================== VIRTUAL JOINT ===================== -->
+
+  <virtual_joint
+    name="virtual_joint"
+    type="fixed"
+    parent_frame="world"
+    child_link="base_link"/>
+
+
+  <!-- ===================== GRIPPER END EFFECTOR ===================== -->
+
+  <end_effector
+    name="gripper"
+    parent_link="gripper_link"
+    group="gripper"
+    parent_group="scara_arm"/>
+
+
+  <!-- ===================== COLLISION SETTINGS ===================== -->
+
+  <!-- Main arm adjacent links -->
+  <disable_collisions
+    link1="base_link"
+    link2="base_rotation_link"
+    reason="Adjacent"/>
+
+  <disable_collisions
+    link1="base_rotation_link"
+    link2="z_bottom_plate"
+    reason="Adjacent"/>
+
+  <disable_collisions
+    link1="z_bottom_plate"
+    link2="z_rods"
+    reason="Adjacent"/>
+
+  <disable_collisions
+    link1="z_bottom_plate"
+    link2="z_lead_screw"
+    reason="Adjacent"/>
+
+  <disable_collisions
+    link1="z_bottom_plate"
+    link2="z_mount_platform"
+    reason="Adjacent"/>
+
+  <disable_collisions
+    link1="z_rods"
+    link2="z_top_plate"
+    reason="Adjacent"/>
+
+  <disable_collisions
+    link1="z_top_plate"
+    link2="z_mount_platform"
+    reason="Adjacent"/>
+
+  <disable_collisions
+    link1="z_mount_platform"
+    link2="j1_link"
+    reason="Adjacent"/>
+
+  <disable_collisions
+    link1="j1_link"
+    link2="arm1_link"
+    reason="Adjacent"/>
+
+  <disable_collisions
+    link1="arm1_link"
+    link2="j2_link"
+    reason="Adjacent"/>
+
+  <disable_collisions
+    link1="j2_link"
+    link2="arm2_link"
+    reason="Adjacent"/>
+
+  <disable_collisions
+    link1="arm2_link"
+    link2="j3_link"
+    reason="Adjacent"/>
+
+  <disable_collisions
+    link1="j3_link"
+    link2="gripper_link"
+    reason="Adjacent"/>
+
+
+  <!-- Gripper adjacent links -->
+  <disable_collisions
+    link1="gripper_link"
+    link2="gripper_left"
+    reason="Adjacent"/>
+
+  <disable_collisions
+    link1="gripper_link"
+    link2="gripper_right"
+    reason="Adjacent"/>
+
+  <disable_collisions
+    link1="gripper_left"
+    link2="gripper_right"
+    reason="Never"/>
+
+  <disable_collisions
+    link1="gripper_left"
+    link2="gripper_slider_left"
+    reason="Adjacent"/>
+
+  <disable_collisions
+    link1="gripper_right"
+    link2="gripper_slider_right"
+    reason="Adjacent"/>
+
+  <disable_collisions
+    link1="gripper_slider_left"
+    link2="gripper_left_link1"
+    reason="Adjacent"/>
+
+  <disable_collisions
+    link1="gripper_left_link1"
+    link2="gripper_left_link2"
+    reason="Adjacent"/>
+
+  <disable_collisions
+    link1="gripper_slider_right"
+    link2="gripper_right_link1"
+    reason="Adjacent"/>
+
+  <disable_collisions
+    link1="gripper_right_link1"
+    link2="gripper_right_link2"
+    reason="Adjacent"/>
+
+<!-- STRUCTURAL COLLISION DISABLES -->
+
+<disable_collisions link1="motor_j2_carriage" link2="z_mount_platform" reason="Adjacent"/>
+<disable_collisions link1="top_cover" link2="z_rods" reason="Adjacent"/>
+<disable_collisions link1="top_cover" link2="z_top_plate" reason="Adjacent"/>
+<disable_collisions link1="z_bottom_plate" link2="z_drive_coupler" reason="Adjacent"/>
+<disable_collisions link1="z_bottom_plate" link2="z_rod_clamps" reason="Adjacent"/>
+<disable_collisions link1="z_drive_coupler" link2="z_rods" reason="Adjacent"/>
+<disable_collisions link1="z_rod_clamps" link2="z_rods" reason="Adjacent"/>
+<disable_collisions link1="z_rod_clamps" link2="z_top_plate" reason="Adjacent"/>
+</robot>

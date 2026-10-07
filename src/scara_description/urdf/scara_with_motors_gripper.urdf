@@ -1,0 +1,494 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<robot name="scara_robot">
+
+  <material name="blue"><color rgba="0.10 0.45 0.90 1" /></material>
+  <material name="white"><color rgba="0.90 0.90 0.90 1" /></material>
+  <material name="metal"><color rgba="0.65 0.65 0.65 1" /></material>
+
+  
+
+  
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/base.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="blue" />
+    </visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/base.stl" scale="0.001 0.001 0.001" /></geometry>
+      </collision></link>
+
+  
+  <link name="base_rotation_link" />
+  <joint name="base_joint" type="revolute">
+    <parent link="base_link" /><child link="base_rotation_link" />
+    <origin xyz="0.150 0.070 0" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="-3.14159" upper="3.14159" effort="10" velocity="1.0" />
+  </joint>
+
+  
+  <link name="z_bottom_plate">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/z_bottom_plate.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="blue" />
+    </visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/z_bottom_plate.stl" scale="0.001 0.001 0.001" /></geometry>
+      </collision></link>
+  <joint name="base_to_z_bottom" type="fixed">
+    <parent link="base_rotation_link" /><child link="z_bottom_plate" />
+    <origin xyz="-0.150 -0.070 0" rpy="0 0 0" />
+  </joint>
+
+  <link name="z_rods">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/z_rods.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="metal" />
+    </visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/z_rods.stl" scale="0.001 0.001 0.001" /></geometry>
+      </collision></link>
+  <joint name="base_to_z_rods" type="fixed">
+    <parent link="base_rotation_link" /><child link="z_rods" />
+    <origin xyz="-0.150 -0.070 0" rpy="0 0 0" />
+  </joint>
+
+  <link name="z_rod_clamps">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/z_rod_clamps.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="blue" />
+    </visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/z_rod_clamps.stl" scale="0.001 0.001 0.001" /></geometry>
+      </collision></link>
+  <joint name="base_to_z_rod_clamps" type="fixed">
+    <parent link="base_rotation_link" /><child link="z_rod_clamps" />
+    <origin xyz="-0.150 -0.070 0" rpy="0 0 0" />
+  </joint>
+
+  <link name="z_lead_screw">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/z_lead_screw.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="metal" />
+    </visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/z_lead_screw.stl" scale="0.001 0.001 0.001" /></geometry>
+      </collision></link>
+  <joint name="base_to_lead_screw" type="fixed">
+    <parent link="base_rotation_link" /><child link="z_lead_screw" />
+    <origin xyz="-0.150 -0.070 0" rpy="0 0 0" />
+  </joint>
+
+  <link name="z_top_plate">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/z_top_plate.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="blue" />
+    </visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/z_top_plate.stl" scale="0.001 0.001 0.001" /></geometry>
+      </collision></link>
+  <joint name="base_to_z_top" type="fixed">
+    <parent link="base_rotation_link" /><child link="z_top_plate" />
+    <origin xyz="-0.150 -0.070 0" rpy="0 0 0" />
+  </joint>
+
+  <link name="top_cover">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/top_cover.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="blue" />
+    </visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/top_cover.stl" scale="0.001 0.001 0.001" /></geometry>
+      </collision></link>
+  <joint name="base_to_top_cover" type="fixed">
+    <parent link="base_rotation_link" /><child link="top_cover" />
+    <origin xyz="-0.150 -0.070 0" rpy="0 0 0" />
+  </joint>
+
+  <link name="z_drive_coupler">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/z_drive_coupler.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="blue" />
+    </visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/z_drive_coupler.stl" scale="0.001 0.001 0.001" /></geometry>
+      </collision></link>
+  <joint name="base_to_z_drive_coupler" type="fixed">
+    <parent link="base_rotation_link" /><child link="z_drive_coupler" />
+    <origin xyz="-0.150 -0.070 0" rpy="0 0 0" />
+  </joint>
+
+  
+  <link name="z_mount_platform">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/z_mount_platform.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="blue" />
+    </visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/z_mount_platform.stl" scale="0.001 0.001 0.001" /></geometry>
+      </collision></link>
+  <joint name="z_axis" type="prismatic">
+    <parent link="base_rotation_link" /><child link="z_mount_platform" />
+    <origin xyz="0 0 0.308616" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.175" upper="0.09" effort="10" velocity="0.05" />
+  </joint>
+
+  
+  <link name="j1_link" />
+  <joint name="joint1" type="fixed">
+    <parent link="z_mount_platform" /><child link="j1_link" />
+    <origin xyz="0 0 -0.028996" rpy="0 0 0" />
+  </joint>
+
+  <link name="arm1_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/arm1.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="blue" />
+    </visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/arm1.stl" scale="0.001 0.001 0.001" /></geometry>
+      </collision></link>
+  <joint name="j1_to_arm1" type="fixed">
+    <parent link="j1_link" /><child link="arm1_link" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+
+  
+  <link name="j2_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/j2_coupler.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="blue" />
+    </visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/j2_coupler.stl" scale="0.001 0.001 0.001" /></geometry>
+      </collision></link>
+  <joint name="joint2" type="revolute">
+    <parent link="arm1_link" /><child link="j2_link" />
+    <origin xyz="0.218367 0.065575 -0.035004" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="-3.14159" upper="3.14159" effort="10" velocity="1.5" />
+  </joint>
+
+  
+  <link name="arm2_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/arm2.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="blue" />
+    </visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/arm2.stl" scale="0.001 0.001 0.001" /></geometry>
+      </collision></link>
+  <joint name="j2_to_arm2" type="fixed">
+    <parent link="j2_link" /><child link="arm2_link" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+
+  
+  <link name="j3_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/j3_coupler.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="blue" />
+    </visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/j3_coupler.stl" scale="0.001 0.001 0.001" /></geometry>
+      </collision></link>
+  <joint name="joint3" type="revolute">
+    <parent link="arm2_link" /><child link="j3_link" />
+    <origin xyz="0.106764 -0.085051 -0.057000" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="-3.14159" upper="3.14159" effort="5" velocity="2" />
+  </joint>
+
+  
+  <link name="gripper_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/gripper_static_nomech.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="white" />
+    </visual>
+  <collision><origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/gripper_static_nomech.stl" scale="0.001 0.001 0.001" /></geometry>
+      </collision></link>
+  <joint name="j3_to_gripper" type="fixed">
+    <parent link="j3_link" /><child link="gripper_link" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+
+  
+  <link name="gripper_left">
+    
+    <visual>
+      <origin xyz="0.000000 0.000000 0.100000" rpy="3.14159265 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/gripper/Gripper_Hand_Left.STL" scale="0.001 0.001 0.001" /></geometry>
+      <material name="white" />
+    </visual>
+    <visual>
+      <origin xyz="0.000000 0.026000 0.100000" rpy="3.14159265 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/gripper/Gripper_Hand_Left.STL" scale="0.001 0.001 0.001" /></geometry>
+      <material name="white" />
+    </visual>
+    <visual>
+      <origin xyz="0.001488 0.026469 -0.004535" rpy="0 0 -1.5712" />
+      <geometry><mesh filename="package://scara_description/meshes/gripper/Gripper_End.STL" scale="0.001 0.001 0.001" /></geometry>
+      <material name="white" />
+    </visual>
+  <collision><origin xyz="0.000000 0.000000 0.100000" rpy="3.14159265 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/gripper/Gripper_Hand_Left.STL" scale="0.001 0.001 0.001" /></geometry>
+      </collision><collision><origin xyz="0.000000 0.026000 0.100000" rpy="3.14159265 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/gripper/Gripper_Hand_Left.STL" scale="0.001 0.001 0.001" /></geometry>
+      </collision><collision><origin xyz="0.001488 0.026469 -0.004535" rpy="0 0 -1.5712" />
+      <geometry><mesh filename="package://scara_description/meshes/gripper/Gripper_End.STL" scale="0.001 0.001 0.001" /></geometry>
+      </collision></link>
+  <joint name="gripper_left_joint" type="prismatic">
+    <parent link="gripper_link" /><child link="gripper_left" />
+    <origin xyz="-0.052913 -0.020971 -0.109899" rpy="0 0 0.1487" />
+    <axis xyz="1 0 0" />
+    <limit lower="0" upper="0.014" effort="20" velocity="0.05" />
+  </joint>
+
+  
+  <link name="gripper_right">
+    
+    
+    <visual>
+      <origin xyz="0.000000 0.000000 0.100000" rpy="3.14159265 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/gripper/Gripper_Hand_Right(1).STL" scale="0.001 0.001 0.001" /></geometry>
+      <material name="white" />
+    </visual>
+    <visual>
+      <origin xyz="0.000000 0.026000 0.100000" rpy="3.14159265 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/gripper/Gripper_Hand_Right(1).STL" scale="0.001 0.001 0.001" /></geometry>
+      <material name="white" />
+    </visual>
+    <visual>
+      <origin xyz="0.024922 -0.000796 -0.004347" rpy="0 0 1.5673" />
+      <geometry><mesh filename="package://scara_description/meshes/gripper/Gripper_End.STL" scale="0.001 0.001 0.001" /></geometry>
+      <material name="white" />
+    </visual>
+  <collision><origin xyz="0.000000 0.000000 0.100000" rpy="3.14159265 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/gripper/Gripper_Hand_Right(1).STL" scale="0.001 0.001 0.001" /></geometry>
+      </collision><collision><origin xyz="0.000000 0.026000 0.100000" rpy="3.14159265 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/gripper/Gripper_Hand_Right(1).STL" scale="0.001 0.001 0.001" /></geometry>
+      </collision><collision><origin xyz="0.024922 -0.000796 -0.004347" rpy="0 0 1.5673" />
+      <geometry><mesh filename="package://scara_description/meshes/gripper/Gripper_End.STL" scale="0.001 0.001 0.001" /></geometry>
+      </collision></link>
+  <joint name="gripper_right_joint" type="prismatic">
+    <parent link="gripper_link" /><child link="gripper_right" />
+    <origin xyz="0.030993 -0.008579 -0.108696" rpy="0 0 0.1462" />
+    <axis xyz="-1 0 0" />
+    <limit lower="0" upper="0.014" effort="20" velocity="0.05" />
+    <mimic joint="gripper_left_joint" multiplier="1" offset="0" />
+  </joint>
+
+<link name="tcp_link" /><joint name="gripper_to_tcp" type="fixed"><parent link="gripper_link" /><child link="tcp_link" /><origin xyz="0 0 -0.109899" rpy="0 0 0" /></joint>
+  <!-- ===== NEMA 17 stepper motors =====
+       Mesh frame: origin on shaft axis, z=0 on mounting face, body toward -Z (40 mm), shaft toward +Z (20 mm).
+       Positions/yaw measured from pilot holes and 31 mm bolt patterns in the aligned STLs. -->
+  <material name="motor_black"><color rgba="0.12 0.12 0.12 1" /></material>
+
+  <!-- Base-rotation motor: in the diamond pocket of the base block (floor z=37 mm), shaft down through pilot hole -->
+  <link name="motor_j1_base">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/nema17.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="motor_black" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.020" rpy="0 0 0" />
+      <geometry><box size="0.042 0.042 0.040" /></geometry>
+    </collision>
+  </link>
+  <joint name="motor_j1_base_mount" type="fixed">
+    <parent link="base_link" /><child link="motor_j1_base" />
+    <origin xyz="0.0371 0.1034 0.0370" rpy="3.141593 0.000000 0.7854" />
+  </joint>
+
+  <!-- Z-axis motor: on top face of z_top_plate (z=468 mm), shaft down through pilot hole -->
+  <link name="motor_z">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/nema17.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="motor_black" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.020" rpy="0 0 0" />
+      <geometry><box size="0.042 0.042 0.040" /></geometry>
+    </collision>
+  </link>
+  <joint name="motor_z_mount" type="fixed">
+    <parent link="base_rotation_link" /><child link="motor_z" />
+    <origin xyz="0.0316 0.0095 0.4680" rpy="3.141593 0.000000 0.2985" />
+  </joint>
+
+  <!-- Carriage motor: on top face of z_mount_platform, shaft down through pilot hole; moves with z_axis -->
+  <link name="motor_j2_carriage">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/nema17.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="motor_black" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.020" rpy="0 0 0" />
+      <geometry><box size="0.042 0.042 0.040" /></geometry>
+    </collision>
+  </link>
+  <joint name="motor_j2_carriage_mount" type="fixed">
+    <parent link="z_mount_platform" /><child link="motor_j2_carriage" />
+    <origin xyz="-0.0096 -0.0029 0.0000" rpy="3.141593 0.000000 0.2915" />
+  </joint>
+
+  <!-- J3 motor: on underside of arm2 (z=-39 mm), shaft up through pilot hole -->
+  <link name="motor_j3_arm2">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/nema17.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="motor_black" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.020" rpy="0 0 0" />
+      <geometry><box size="0.042 0.042 0.040" /></geometry>
+    </collision>
+  </link>
+  <joint name="motor_j3_arm2_mount" type="fixed">
+    <parent link="arm2_link" /><child link="motor_j3_arm2" />
+    <origin xyz="-0.0047 0.0037 -0.0390" rpy="0.000000 0.000000 -0.6737" />
+  </joint>
+
+
+  <!-- ===== Gripper linkage: servo horn drives 2 links per side; each link pair pins to a slider that rides with its finger ===== -->
+  <link name="gripper_horn">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/gripper_horn.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/gripper_horn.stl" scale="0.001 0.001 0.001" /></geometry>
+    </collision>
+  </link>
+  <link name="gripper_slider_left">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/gripper_slider_left.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/gripper_slider_left.stl" scale="0.001 0.001 0.001" /></geometry>
+    </collision>
+  </link>
+  <link name="gripper_slider_right">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/gripper_slider_right.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/gripper_slider_right.stl" scale="0.001 0.001 0.001" /></geometry>
+    </collision>
+  </link>
+  <link name="gripper_link1_left">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/gripper_link1_left.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/gripper_link1_left.stl" scale="0.001 0.001 0.001" /></geometry>
+    </collision>
+  </link>
+  <link name="gripper_link2_left">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/gripper_link2_left.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/gripper_link2_left.stl" scale="0.001 0.001 0.001" /></geometry>
+    </collision>
+  </link>
+  <link name="gripper_link1_right">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/gripper_link1_right.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/gripper_link1_right.stl" scale="0.001 0.001 0.001" /></geometry>
+    </collision>
+  </link>
+  <link name="gripper_link2_right">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/gripper_link2_right.stl" scale="0.001 0.001 0.001" /></geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://scara_description/meshes/aligned/gripper_link2_right.stl" scale="0.001 0.001 0.001" /></geometry>
+    </collision>
+  </link>
+  <joint name="gripper_horn_joint" type="revolute">
+    <parent link="gripper_link" /><child link="gripper_horn" />
+    <origin xyz="0.000194 -0.001250 -0.039498" rpy="0.000000 -0.000000 0.000000" />
+    <axis xyz="-0.144501 0.989505 0.000000" />
+    <limit lower="-3.14159" upper="3.14159" effort="5" velocity="2" />
+    <mimic joint="gripper_left_joint" multiplier="71.9968" offset="0" />
+  </joint>
+  <joint name="gripper_slider_left_mount" type="fixed">
+    <parent link="gripper_left" /><child link="gripper_slider_left" />
+    <origin xyz="0.024889 0.012943 0.070411" rpy="0.000000 -0.000000 -0.148700" />
+  </joint>
+  <joint name="gripper_slider_right_mount" type="fixed">
+    <parent link="gripper_right" /><child link="gripper_slider_right" />
+    <origin xyz="0.001126 0.012990 0.069247" rpy="0.000000 -0.000000 -0.146200" />
+  </joint>
+  <joint name="gripper_link1_left_joint" type="revolute">
+    <parent link="gripper_slider_left" /><child link="gripper_link1_left" />
+    <origin xyz="0.000606 -0.004154 -0.000014" rpy="0.000000 -0.000000 0.000000" />
+    <axis xyz="-0.144501 0.989505 0.000000" />
+    <limit lower="-3.14159" upper="3.14159" effort="5" velocity="2" />
+    <mimic joint="gripper_left_joint" multiplier="-2.6119" offset="0" />
+  </joint>
+  <joint name="gripper_link2_left_joint" type="revolute">
+    <parent link="gripper_slider_left" /><child link="gripper_link2_left" />
+    <origin xyz="-0.000355 0.002522 0.000004" rpy="0.000000 -0.000000 0.000000" />
+    <axis xyz="-0.144501 0.989505 0.000000" />
+    <limit lower="-3.14159" upper="3.14159" effort="5" velocity="2" />
+    <mimic joint="gripper_left_joint" multiplier="-2.6119" offset="0" />
+  </joint>
+  <joint name="gripper_link1_right_joint" type="revolute">
+    <parent link="gripper_slider_right" /><child link="gripper_link1_right" />
+    <origin xyz="0.000632 -0.004201 -0.000043" rpy="0.000000 -0.000000 0.000000" />
+    <axis xyz="-0.144501 0.989505 0.000000" />
+    <limit lower="-3.14159" upper="3.14159" effort="5" velocity="2" />
+    <mimic joint="gripper_left_joint" multiplier="-2.6119" offset="0" />
+  </joint>
+  <joint name="gripper_link2_right_joint" type="revolute">
+    <parent link="gripper_slider_right" /><child link="gripper_link2_right" />
+    <origin xyz="-0.000337 0.002484 -0.000053" rpy="0.000000 -0.000000 0.000000" />
+    <axis xyz="-0.144501 0.989505 0.000000" />
+    <limit lower="-3.14159" upper="3.14159" effort="5" velocity="2" />
+    <mimic joint="gripper_left_joint" multiplier="-2.6119" offset="0" />
+  </joint>
+
+</robot>
